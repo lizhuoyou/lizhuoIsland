@@ -33,6 +33,62 @@ const RawApp = (props: Props) => {
   React.useEffect(() => {
     const handleWindowResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleWindowResize);
+
+    const cursor = document.querySelector<HTMLElement>(".cursor");
+    const cursorDot = document.querySelector<HTMLElement>(".cursor-dot");
+    const buttons = document.querySelectorAll<HTMLElement>("Button");
+    window.addEventListener("mousemove", (e) => {
+      if (cursor) {
+        cursor.style.left = e.pageX + "px";
+        cursor.style.top = e.pageY + "px";
+      }
+      if (cursorDot) {
+        cursorDot.style.left = e.pageX + "px";
+        cursorDot.style.top = e.pageY + "px";
+      }
+    });
+    if (buttons) {
+      buttons.forEach((b) => {
+        b.addEventListener("mouseleave", () => {
+          if (cursor) {
+            cursor.classList.remove("cursor-grow");
+          }
+        });
+        b.addEventListener("mouseover", () => {
+          if (cursor) {
+            cursor.classList.add("cursor-grow");
+          }
+        });
+      });
+    }
+    document.querySelectorAll<HTMLElement>("a").forEach((a) => {
+      a.addEventListener("mouseleave", () => {
+        if (cursor) {
+          cursor.classList.remove("cursor-grow");
+        }
+      });
+      a.addEventListener("mouseover", () => {
+        if (cursor) {
+          cursor.classList.add("cursor-grow");
+        }
+      });
+    });
+    document.addEventListener("mouseenter", (e) => {
+      if (cursor) {
+        cursor.style.opacity = "1";
+      }
+      if (cursorDot) {
+        cursorDot.style.opacity = "1";
+      }
+    });
+    document.addEventListener("mouseleave", (e) => {
+      if (cursor) {
+        cursor.style.opacity = "0";
+      }
+      if (cursorDot) {
+        cursorDot.style.opacity = "0";
+      }
+    });
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
 
@@ -41,12 +97,16 @@ const RawApp = (props: Props) => {
 
   return (
     <MuiThemeProvider theme={futureTheme}>
-      <Router history={history}>
-        <Switch>
-          <Route exact path="/" component={Mainpage} />
-          <Route path="*" render={() => notfoundpage} />
-        </Switch>
-      </Router>
+      <div className="root">
+        <Router history={history}>
+          <Switch>
+            <Route exact path="/" component={Mainpage} />
+            <Route path="*" render={() => notfoundpage} />
+          </Switch>
+        </Router>
+      </div>
+      <div className="cursor" />
+      <div className="cursor-dot" />
     </MuiThemeProvider>
   );
 };

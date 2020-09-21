@@ -16,4 +16,49 @@ body {
   margin: 0px;
   font-family: "Tw Cen MT";
   font-size: 16px;
+  overflow: hidden;
+  cursor: none;
+}
+
+body * {
+  cursor: none !important;
+}
+
+.root {
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+.cursor {
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid #05658b;
+  background-color: rgba(5, 101, 139, 0.3);
+  border-radius: 50%;
+  position: absolute;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: left 0.1s ease, top 0.1s ease, transform 0.4s ease,
+    background 0.4s ease;
+  transform-origin: 150% 150%;
+  backdrop-filter: blur(3px);
+}
+
+.cursor-grow {
+  transform: scale(1.5);
+  backdrop-filter: blur(0px);
+  background-color: transparent;
+}
+
+.cursor-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #05658b;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
