@@ -6,11 +6,15 @@ import {
   WithStyles,
   Button,
   Box,
+  IconButton,
 } from "@material-ui/core";
 import Typed from "react-typed";
 import { history } from "../../../store";
+import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
+import PauseCircleFilledIcon from "@material-ui/icons/PauseCircleFilled";
 
 const BackgroundVideo = require("../img/lizhuoBackgroundVideo.mp4");
+const soundfile = require("./wontCry.mp3");
 
 const styles = (them: Theme) =>
   createStyles({
@@ -50,16 +54,41 @@ const styles = (them: Theme) =>
         color: "rgba(255,215, 0 ,0.85)",
       },
     },
+    startButton: {
+      marginTop: "max(14px, min(28px, 1.9vw))",
+      fontSize: "max(41px, min(82px, 5.7vw))",
+      color: "rgba(255,255,255,0.5)",
+      height: "max(41px, min(82px, 5.7vw))",
+      width: "max(41px, min(82px, 5.7vw))",
+      "&:hover": {
+        backgroundColor: "transparent",
+        color: "#FFFFFF",
+      },
+    },
   });
 
 interface Props extends WithStyles<typeof styles> {}
 
 const Header = (props: Props) => {
   const { classes } = props;
-  const [pages, setPages] = React.useState([false, false, false, false]);
+  const [musicOn, setMusicOn] = React.useState(false);
+
+  const audRef = React.useRef<any>(null);
+
+  const playmusic = () => {
+    if (audRef) {
+      if (!musicOn) {
+        audRef.current.play();
+      } else {
+        audRef.current.pause();
+      }
+    }
+    setMusicOn(!musicOn);
+  };
 
   return (
     <div className={classes.root}>
+      <audio ref={audRef} src={soundfile} loop />
       <video
         style={{
           width: "100%",
@@ -72,7 +101,7 @@ const Header = (props: Props) => {
         muted
         loop
       >
-        The video is blocked"
+        The video is blocked
       </video>
       <div className={classes.content}>
         <div className={classes.navBar}>
@@ -135,11 +164,23 @@ const Header = (props: Props) => {
           mt="5vh"
           width="350px"
           fontSize="1.3rem"
-          color="grey"
+          color="#D8D8D8"
           textAlign="center"
         >
-          Here it should be a button
+          Click the button to start ↓ (This is currently does nothing but
+          playing a beautiful piano music for you)
         </Box>
+        <IconButton
+          onClick={() => playmusic()}
+          disableRipple={true}
+          className={classes.startButton}
+        >
+          {musicOn ? (
+            <PauseCircleFilledIcon fontSize="inherit" />
+          ) : (
+            <PlayCircleFilledWhiteIcon fontSize="inherit" />
+          )}
+        </IconButton>
       </div>
     </div>
   );
