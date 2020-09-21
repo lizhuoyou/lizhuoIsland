@@ -56,7 +56,7 @@ interface Props extends WithStyles<typeof styles> {}
 
 const Header = (props: Props) => {
   const { classes } = props;
-  const [pages, setSelected] = React.useState([false, false, false, false]);
+  const [pages, setPages] = React.useState([false, false, false, false]);
 
   return (
     <div className={classes.root}>
@@ -79,7 +79,7 @@ const Header = (props: Props) => {
           <Button
             disableRipple={true}
             className={classes.navLink}
-            style={{ color: pages[0] ? "gold" : "default" }}
+            style={{ color: false ? "gold" : "default" }}
             onClick={() => history.push("/")}
           >
             home
@@ -88,7 +88,7 @@ const Header = (props: Props) => {
           <Button
             disableRipple={true}
             className={classes.navLink}
-            style={{ color: pages[1] ? "gold" : "default" }}
+            style={{ color: false ? "gold" : "default" }}
             onClick={() => history.push("/lizhuo")}
           >
             lizhuo
@@ -97,7 +97,7 @@ const Header = (props: Props) => {
           <Button
             disableRipple={true}
             className={classes.navLink}
-            style={{ color: pages[2] ? "gold" : "default" }}
+            style={{ color: false ? "gold" : "default" }}
             onClick={() => history.push("/codefountain")}
           >
             codeFountain
@@ -106,7 +106,7 @@ const Header = (props: Props) => {
           <Button
             disableRipple={true}
             className={classes.navLink}
-            style={{ color: pages[3] ? "gold" : "default" }}
+            style={{ color: false ? "gold" : "default" }}
             onClick={() => history.push("/poetrylake")}
           >
             poetryLake

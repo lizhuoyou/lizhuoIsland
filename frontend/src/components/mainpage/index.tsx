@@ -113,7 +113,7 @@ const MainPage = (props: Props) => {
               alignItems="center"
             >
               <Box fontSize="2em" color="black">
-                Since the island is still being consctructed, there are not much
+                Since my island is still under consctruction, there are not much
                 availabe for now.
               </Box>
               <Box
